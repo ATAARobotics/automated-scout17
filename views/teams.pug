@@ -2,4 +2,16 @@ extends layout
 
 block content
   h1= title
-  p= teams
+  table(class='table table-condensed')
+    thead
+      tr
+        th Team Number
+        th Team Name
+        th Location
+        th Website
+    each team in teams
+      tr
+        td #{team.team_number}
+        td #{team.nickname}
+        td #{team.location}
+        td <a href='#{team.website}'> #{team.website}

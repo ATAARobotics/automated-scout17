@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
     res.render('teams', { title: 'Teams', teams: teams });
   }
 
-  tba.getTeamList('casb', teamList);
+  tba.getTeamList(0, teamList);
 });
 
 module.exports = router;
