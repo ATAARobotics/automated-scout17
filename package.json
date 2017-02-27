@@ -1,6 +1,6 @@
 {
   "name": "automated-scout17",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -14,6 +14,6 @@
     "node-sass-middleware": "0.9.8",
     "pug": "~2.0.0-beta10",
     "serve-favicon": "~2.3.2",
-    "thebluealliance": "git://github.com/trevorkhtsang/node-thebluealliance.git#commit-f04341f7a8184841b65d2627c58c89cf93996d9e"
+    "thebluealliance": "git://github.com/trevorkhtsang/node-thebluealliance.git"
   }
 }
