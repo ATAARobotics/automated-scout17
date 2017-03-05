@@ -49,9 +49,14 @@ app.use(function(err, req, res, next) {
 });
 
 /// TEST
-var Predict = require('./model/predict.js');
+var Team = require('./model/team.js')
+Team.findTeam(4334).then(function(data) {
+}, function(err) {
+  console.log("error: " + err);
+});
 
-Predict.getPredictions('gagai').then(function(data) {
+var Event = require('./model/event.js')
+Event.findEvent('gagai').then(function(data) {
 }, function(err) {
   console.log("error: " + err);
 });
@@ -62,8 +67,14 @@ TeamEvent.findTeamEvent(118, 'txlu').then(function(data) {
   console.log("error: " + err);
 });
 
-var Event = require('./model/event.js')
-Event.findEvent('gagai').then(function(data) {
+var Stats = require('./model/stats.js');
+Stats.getStats('gagai').then(function(data) {
+}, function(err) {
+  console.log("error: " + err);
+});
+
+var Predict = require('./model/predict.js');
+Predict.getPredictions('gagai').then(function(data) {
 }, function(err) {
   console.log("error: " + err);
 });
