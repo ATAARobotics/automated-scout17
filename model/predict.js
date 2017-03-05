@@ -69,14 +69,32 @@ function getPredictions(event_code) {
           pred.opr_accuracy = opr_was_correct / total_matches;
           pred.ccwm_accuracy = ccwm_was_correct / total_matches;
 
-          pred.rankpoints = {};
-          for (var team in stats.rankpoints) {
-            pred.rankpoints[team] = stats.rankpoints[team];
-            pred.matches.filter((m) => !m.hasOccured).forEach((match) => {
-            });
-          }
 
-          console.log(pred.rankpoints);
+          pred.rankpoints = JSON.parse(JSON.stringify(stats.rankpoints));
+          pred.matches.filter((m) => !m.hasOccured).forEach((match) => {
+            if (pred.opr_accuracy > pred.ccwm_accuracy) {
+              if (match.opr.red > match.opr.blue) {
+                pred.rankpoints[match.match.alliances.red[0]] += 2;
+                pred.rankpoints[match.match.alliances.red[1]] += 2;
+                pred.rankpoints[match.match.alliances.red[2]] += 2;
+              } else if (match.opr.blue > match.opr.red) {
+                pred.rankpoints[match.match.alliances.blue[0]] += 2;
+                pred.rankpoints[match.match.alliances.blue[1]] += 2;
+                pred.rankpoints[match.match.alliances.blue[2]] += 2;
+              }
+            } else {
+              if (match.ccwm.red > match.ccwm.blue) {
+                pred.rankpoints[match.match.alliances.red[0]] += 2;
+                pred.rankpoints[match.match.alliances.red[1]] += 2;
+                pred.rankpoints[match.match.alliances.red[2]] += 2;
+              } else if (match.ccwm.blue > match.ccwm.red) {
+                pred.rankpoints[match.match.alliances.blue[0]] += 2;
+                pred.rankpoints[match.match.alliances.blue[1]] += 2;
+                pred.rankpoints[match.match.alliances.blue[2]] += 2;
+              }
+            }
+          });
+
           resolve(pred);
         });
       }, function(err) { reject(err); });

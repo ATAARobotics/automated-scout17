@@ -45,7 +45,10 @@ function getMatches(event_code) {
               hasOccured: false,
               key: m.key,
               match_num: m.match_number,
-              alliances: m.alliances
+              alliances: {
+                red: [m.alliances.red.teams[0], m.alliances.red.teams[1], m.alliances.red.teams[2]],
+                blue: [m.alliances.blue.teams[0], m.alliances.blue.teams[1], m.alliances.blue.teams[2]]
+              }
             };
           } else {
             return {

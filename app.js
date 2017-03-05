@@ -51,7 +51,7 @@ app.use(function(err, req, res, next) {
 /// TEST
 var Predict = require('./model/predict.js');
 
-Predict.getPredictions('txlu').then(function(data) {
+Predict.getPredictions('gagai').then(function(data) {
 }, function(err) {
   console.log("error: " + err);
 });
@@ -63,8 +63,7 @@ TeamEvent.findTeamEvent(118, 'txlu').then(function(data) {
 });
 
 var Event = require('./model/event.js')
-Event.findEvent('txlu').then(function(data) {
-  console.log(data);
+Event.findEvent('gagai').then(function(data) {
 }, function(err) {
   console.log("error: " + err);
 });
