@@ -108,7 +108,7 @@ function getStats(event_code, refresh) {
           total: sort(stats.opr.total),
           teleop: sort(stats.opr.teleop),
           auto: sort(stats.opr.auto),
-          foul: sort(stats.opr.foul),
+          foul: sort(stats.opr.foul).reverse(),
           climb: sort(stats.opr.climb),
           mobility: sort(stats.opr.mobility),
           rotor: {
