@@ -90,7 +90,7 @@ function getPredictions(event_code, refresh) {
           pred.ccwm_accuracy = (100 * ccwm_was_correct / total_matches).toFixed(2);
 
           pred.rankpoints = JSON.parse(JSON.stringify(stats.rankpoints));
-          pred.matches.filter((m) => !m.hasOccured).forEach((match) => {
+          pred.matches.filter((m) => !m.info.hasOccured).forEach((match) => {
             if (pred.opr_accuracy > pred.ccwm_accuracy) {
               if (match.opr.red > match.opr.blue) {
                 pred.rankpoints[match.info.alliances.red[0]] += 2;
