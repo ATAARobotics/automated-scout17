@@ -1,0 +1,42 @@
+extends layout
+
+block content
+    .container
+        h1 #{event.name} #{event.year}
+        p
+            | #{event.start_date.getDate()}/#{event.start_date.getMonth()}
+            | to #{event.end_date.getDate()}/#{event.end_date.getMonth()}
+
+        .row
+            a(href="/event/" + event.key + "/compare" style="margin: 15px 0").btn.btn-info.btn-block
+                span.glyphicon.glyphicon-star Compare
+            ul.list-group
+                each team in event.teams.map((t) => t.substr(3)).sort((a, b) => a - b)
+                    .col-sm-2
+                        a(href="/team/" + team + "/" + event.key)
+                            li.list-group-item Team #{team}
+        br
+        if prediction.opr_accuracy > prediction.ccwm_accuracy
+            p Predictor (OPR) has been #{prediction.opr_accuracy}% accurate.
+            - var predictor = "opr"
+        else
+            p Predictor (CCWM) has been #{prediction.ccwm_accuracy}% accurate.
+            - var predictor = "ccwm"
+
+        each match in prediction.matches.sort((a, b) => a.info.match_num - b.info.match_num)
+            mixin alliance(alli)
+                .well.well-sm(style=(match.info.winner === alli) ? "font-weight: bold" : "")
+                    |  #{match.info.alliances[alli][0].substring(3)} /
+                    |  #{match.info.alliances[alli][1].substring(3)} /
+                    |  #{match.info.alliances[alli][2].substring(3)}
+                    if match.info.hasOccured
+                        div(style="float:right;margin-left:3px") #{match.info.score[alli].points.total}
+                    if match[predictor].winner === alli
+                        div(style="float:right;font-weight:bold") (P#{match[predictor][alli].toFixed(1)})
+                    else
+                        div(style="float:right") (P#{match[predictor][alli].toFixed(1)})
+            .col-md-3
+                .well.well-sm(style="background:white")
+                    p(style="padding-left:5px") Match #{match.info.match_num}
+                    +alliance("red")
+                    +alliance("blue")

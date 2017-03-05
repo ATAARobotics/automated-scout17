@@ -4,7 +4,7 @@ var Event = require('./event.js')
 var NodeCache = require("node-cache");
 var cache = new NodeCache();
 
-function getTeam(team_number) {
+function getTeam(team_number, refresh) {
   function getTeamInfo(team) {
     team = team || {};
     return new Promise((resolve, reject) => {
@@ -13,6 +13,7 @@ function getTeam(team_number) {
         team.team_number = team_number,
         team.name = info.nickname,
         team.location = info.location,
+        team.website = info.website,
         team.motto = info.motto
 
         resolve(team);
@@ -30,7 +31,7 @@ function getTeam(team_number) {
         events.reduce(function(promise, info) {
           if (info.official) {
             return promise.then(function() {
-              return Event.findEvent(info.key).then(function(event) {
+              return Event.findEvent(info.key, refresh).then(function(event) {
                 team.events.push(event);
               }, function(err) { reject(err); });
             }, function(err) { reject(err); });
@@ -60,14 +61,17 @@ function getTeam(team_number) {
     });
   }
 
-  return getTeamInfo().then(getTeamEvents).then(getTeamMedia);
+  return Promise.resolve()
+    .then(getTeamInfo, (err) => { throw err })
+    .then(getTeamEvents, (err) => { throw err })
+    .then(getTeamMedia, (err) => { throw err });
 }
 
 function findTeam(team_number, refresh) {
   return new Promise((resolve, reject) => {
     var data = cache.get(team_number);
     if (data === undefined || refresh) {
-      getTeam(team_number).then(function(data) {
+      getTeam(team_number, refresh).then(function(data) {
         cache.set(team_number, data);
         resolve(data);
       }, function(err) {
@@ -79,5 +83,4 @@ function findTeam(team_number, refresh) {
   });
 }
 
-module.exports = {getTeam: getTeam,
-                  findTeam: findTeam};
+module.exports = {findTeam: findTeam};

@@ -12,6 +12,7 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+app.set('json spaces', 2);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -28,7 +29,8 @@ app.use(require('node-sass-middleware')({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/teams', require('./routes/teams'));
+app.use('/team', require('./routes/team'));
+app.use('/event', require('./routes/event'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -47,38 +49,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-/// TEST
-var Team = require('./model/team.js')
-Team.findTeam(4334).then(function(data) {
-}, function(err) {
-  console.log("error: " + err);
-});
-
-var Event = require('./model/event.js')
-Event.findEvent('gagai').then(function(data) {
-}, function(err) {
-  console.log("error: " + err);
-});
-
-var TeamEvent = require('./model/teamevent.js')
-TeamEvent.findTeamEvent(118, 'txlu').then(function(data) {
-}, function(err) {
-  console.log("error: " + err);
-});
-
-var Stats = require('./model/stats.js');
-Stats.getStats('gagai').then(function(data) {
-}, function(err) {
-  console.log("error: " + err);
-});
-
-var Predict = require('./model/predict.js');
-Predict.getPredictions('gagai').then(function(data) {
-}, function(err) {
-  console.log("error: " + err);
-});
-
-/// TEST
 
 module.exports = app;

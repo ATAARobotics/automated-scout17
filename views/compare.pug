@@ -1,0 +1,37 @@
+extends layout
+
+block content
+    .container: p: p Prediction method has been #{Math.max(opr_accuracy, ccwm_accuracy)}% accurate
+    .container
+        table.table.sortable
+            thead
+                tr
+                    th Team
+                    th Rank
+                    th RP
+                    th Predicted RP
+                    th OPR Rank
+                    th OPR
+                    th DPR
+                    th CCWM
+                    th Auto
+                    th Climb
+                    th Rotor
+                    th Fuel
+                tbody
+                    each team in Object.keys(stats.ranking).sort((a, b) => stats.ranking[a] - stats.ranking[b])
+                        - var teamnumber = team.substring(3)
+                        tr
+                            td
+                                a(href="/team/" + teamnumber + "/" + event_code) #{teamnumber}
+                            td= stats.ranking[team]
+                            td= stats.rankpoints[team]
+                            td= rankpoints[team]
+                            td= stats.ranks.opr.total.indexOf(team) + 1
+                            td= stats.opr.total[team].toFixed(2)
+                            td= stats.dpr[team].toFixed(2)
+                            td= stats.ccwm[team].toFixed(2)
+                            td= stats.opr.auto[team].toFixed(2)
+                            td= stats.opr.climb[team].toFixed(2)
+                            td= (stats.opr.rotor.auto[team] + stats.opr.rotor.teleop[team]).toFixed(2)
+                            td= (stats.opr.fuel.auto[team] + stats.opr.fuel.teleop[team]).toFixed(2)

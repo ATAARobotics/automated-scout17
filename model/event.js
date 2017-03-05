@@ -11,10 +11,10 @@ function getEvent(event_code) {
     return new Promise((resolve, reject) => {
       tba.getEvent(event_code, 2017, function(err, info) {
         if (err) { console.log(err); return reject(err); }
-        event.key = info.key;
+        event.key = info.key.substr(4);
         event.name = info.name;
-        event.start_date = info.start_date;
-        event.end_date = info.end_date;
+        event.start_date = new Date(info.start_date);
+        event.end_date = new Date(info.end_date);
         event.website = info.website;
 
         resolve(event);
@@ -36,7 +36,9 @@ function getEvent(event_code) {
     });
   }
 
-  return getEventInfo().then(getTeams);
+  return Promise.resolve()
+    .then(getEventInfo, (err) => { throw err })
+    .then(getTeams, (err) => { throw err });
 }
 
 function findEvent(event_code, refresh) {
@@ -55,5 +57,4 @@ function findEvent(event_code, refresh) {
   });
 }
 
-module.exports = {getEvent: getEvent,
-                  findEvent: findEvent};
+module.exports = {findEvent: findEvent};

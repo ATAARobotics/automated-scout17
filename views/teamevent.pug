@@ -1,0 +1,52 @@
+extends layout
+
+block content
+    h1 Team #{team.team_number} #{team.name} in #{event.name}
+    .col-lg-6
+        h3 Stats
+        ul.list-group
+            li.list-group-item OPR
+                span.badge= stats.opr_rank
+                span.badge= stats.opr.toFixed(2)
+            li.list-group-item Teleop
+                span.badge= stats.teleop_rank
+                span.badge= stats.teleop.toFixed(2)
+            li.list-group-item Auto
+                span.badge= stats.auto_rank
+                span.badge= stats.auto.toFixed(2)
+            li.list-group-item DPR
+                span.badge= stats.dpr_rank
+                span.badge= stats.dpr.toFixed(2)
+            li.list-group-item CCWM
+                span.badge= stats.ccwm_rank
+                span.badge= stats.ccwm.toFixed(2)
+            li.list-group-item Fouls
+                span.badge= stats.foul_rank
+                span.badge= stats.foul.toFixed(2)
+        h4 Auto
+        ul.list-group
+            li.list-group-item Rotor
+                span.badge= stats.rotor_auto_rank
+                span.badge= stats.rotor_auto.toFixed(2)
+            li.list-group-item Fuel
+                span.badge= stats.fuel_auto_rank
+                span.badge= stats.fuel_auto.toFixed(2)
+            li.list-group-item Mobility
+                span.badge= stats.mobility_rank
+                span.badge= stats.mobility.toFixed(2)
+        h4 Teleop
+        ul.list-group
+            li.list-group-item Rotor
+                span.badge= stats.rotor_teleop_rank
+                span.badge= stats.rotor_teleop.toFixed(2)
+            li.list-group-item Fuel
+                span.badge= stats.fuel_teleop_rank
+                span.badge= stats.fuel_teleop.toFixed(2)
+            li.list-group-item Climbing
+                span.badge= stats.climb_rank
+                span.badge= stats.climb.toFixed(2)
+    if typeof(team.image_url) !== 'undefined'
+        .col-lg-6
+            .well.well-sm
+                a(href=team.image_url)
+                    img(src=team.image_url width="100%" height="30%" style="border-radius: 5px")

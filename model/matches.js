@@ -1,7 +1,7 @@
 var initTBA = require('thebluealliance');
 var tba = new initTBA('node-thebluealliance','TBA v2 API','1.1.1');
 var NodeCache = require("node-cache");
-var cache = new NodeCache();
+var cache = new NodeCache({ stdTTL: 125 });
 
 function getMatches(event_code) {
   if (event_code.startsWith("2017")) { event_code = event_code.substr(4); }
@@ -73,7 +73,8 @@ function getMatches(event_code) {
     });
   }
 
-  return getMatchList();
+  return Promise.resolve()
+    .then(getMatchList, (err) => { throw err });
 }
 
 function findMatches(event_code, refresh) {
@@ -92,5 +93,4 @@ function findMatches(event_code, refresh) {
   });
 }
 
-module.exports = {getMatches: getMatches,
-                  findMatches: findMatches};
+module.exports = {findMatches: findMatches};
