@@ -48,4 +48,27 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+/// TEST
+var Predict = require('./model/predict.js');
+
+Predict.getPredictions('txlu').then(function(data) {
+}, function(err) {
+  console.log("error: " + err);
+});
+
+var TeamEvent = require('./model/teamevent.js')
+TeamEvent.findTeamEvent(118, 'txlu').then(function(data) {
+}, function(err) {
+  console.log("error: " + err);
+});
+
+var Event = require('./model/event.js')
+Event.findEvent('txlu').then(function(data) {
+  console.log(data);
+}, function(err) {
+  console.log("error: " + err);
+});
+
+/// TEST
+
 module.exports = app;
