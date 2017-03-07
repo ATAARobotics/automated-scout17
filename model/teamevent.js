@@ -1,6 +1,7 @@
 var Team = require('./team.js')
 var Event = require('./event.js')
 var Stats = require('./stats.js')
+var Predict = require('../model/predict.js');
 var NodeCache = require("node-cache");
 var cache = new NodeCache({ stdTTL: 125 });
 
@@ -61,10 +62,27 @@ function getTeamEvent(team_number, event_code, refresh) {
     });
   }
 
+  function getMatches(teamevent) {
+    teamevent = teamevent || {};
+    return new Promise((resolve, reject) => {
+      Predict.findPredictions(event_code, refresh).then(function(p) {
+        teamevent.prediction = {
+          matches: p.matches.filter((match) => {
+            return match.info.alliances.red.indexOf('frc' + team_number) != -1
+              || match.info.alliances.blue.indexOf('frc' + team_number) != -1;
+          })
+        };
+
+        resolve(teamevent);
+      }, function(err) { reject(err); });
+    });
+  }
+
   return Promise.resolve()
     .then(getTeam, (err) => { throw err })
     .then(getEvent, (err) => { throw err })
-    .then(getStats, (err) => { throw err });
+    .then(getStats, (err) => { throw err })
+    .then(getMatches, (err) => { throw err });
 }
 
 function findTeamEvent(team_number, event_code, refresh) {

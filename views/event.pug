@@ -23,20 +23,7 @@ block content
             p Predictor (CCWM) has been #{prediction.ccwm_accuracy}% accurate.
             - var predictor = "ccwm"
 
+        include match.pug
         each match in prediction.matches.sort((a, b) => a.info.match_num - b.info.match_num)
-            mixin alliance(alli)
-                .well.well-sm(style=(match.info.winner === alli) ? "font-weight: bold" : "")
-                    |  #{match.info.alliances[alli][0].substring(3)} /
-                    |  #{match.info.alliances[alli][1].substring(3)} /
-                    |  #{match.info.alliances[alli][2].substring(3)}
-                    if match.info.hasOccured
-                        div(style="float:right;margin-left:3px") #{match.info.score[alli].points.total}
-                    if match[predictor].winner === alli
-                        div(style="float:right;font-weight:bold") (P#{match[predictor][alli].toFixed(1)})
-                    else
-                        div(style="float:right") (P#{match[predictor][alli].toFixed(1)})
-            .col-md-3
-                .well.well-sm(style="background:white")
-                    p(style="padding-left:5px") Match #{match.info.match_num}
-                    +alliance("red")
-                    +alliance("blue")
+            .col-md-4
+                +score(match)

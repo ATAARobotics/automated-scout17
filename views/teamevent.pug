@@ -2,7 +2,7 @@ extends layout
 
 block content
     h1 Team #{team.team_number} #{team.name} in #{event.name}
-    .col-lg-6
+    .col-lg-4
         h3 Stats
         ul.list-group
             li.list-group-item OPR
@@ -45,8 +45,13 @@ block content
             li.list-group-item Climbing
                 span.badge= stats.climb_rank
                 span.badge= stats.climb.toFixed(2)
+    .col-lg-8
+        - var predictor = "opr"
+        include match.pug
+        each match in prediction.matches.sort((a, b) => a.info.match_num - b.info.match_num)
+            .col-md-6
+                +score(match)
     if typeof(team.image_url) !== 'undefined'
-        .col-lg-6
-            .well.well-sm
-                a(href=team.image_url)
-                    img(src=team.image_url width="100%" height="30%" style="border-radius: 5px")
+        .well.well-sm
+            a(href=team.image_url)
+                img(src=team.image_url width="100%" height="30%" style="border-radius: 5px")
