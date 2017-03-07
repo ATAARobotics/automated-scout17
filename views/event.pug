@@ -3,9 +3,10 @@ extends layout
 block content
     .container
         h1 #{event.name} #{event.year}
-        p
-            | #{event.start_date.getDate()}/#{event.start_date.getMonth()}
-            | to #{event.end_date.getDate()}/#{event.end_date.getMonth()}
+        a(href="https://www.thebluealliance.com/event/2017" + event.key style="padding-right: 5px")
+            img(src="https://www.thebluealliance.com/images/logo_square_512.png" height="25px" width="25px" style="border-radius: 25px;")
+        | #{event.start_date.getDate()}/#{event.start_date.getMonth()}
+        | to #{event.end_date.getDate()}/#{event.end_date.getMonth()}
 
         .row
             a(href="/event/" + event.key + "/compare" style="margin: 15px 0").btn.btn-info.btn-block

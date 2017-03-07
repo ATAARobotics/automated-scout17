@@ -16,6 +16,7 @@ mixin alliance(alli, match)
 
 mixin score(match)
     .well.well-sm(style="background:white")
-        p(style="padding-left:5px") Match #{match.info.match_num}
+        p(style="padding-left:5px")
+            a(href="https://www.thebluealliance.com/match/" + match.info.key) Match #{match.info.match_num}
         +alliance("red", match)
         +alliance("blue", match)
