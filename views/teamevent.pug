@@ -6,44 +6,44 @@ block content
         h3 Stats
         ul.list-group
             li.list-group-item OPR
-                span.badge= stats.opr_rank
+                span.badge Rank #{stats.opr_rank}
                 span.badge= stats.opr.toFixed(2)
             li.list-group-item Teleop
-                span.badge= stats.teleop_rank
+                span.badge Rank #{stats.teleop_rank}
                 span.badge= stats.teleop.toFixed(2)
             li.list-group-item Auto
-                span.badge= stats.auto_rank
+                span.badge Rank #{stats.auto_rank}
                 span.badge= stats.auto.toFixed(2)
             li.list-group-item DPR
-                span.badge= stats.dpr_rank
+                span.badge Rank #{stats.dpr_rank}
                 span.badge= stats.dpr.toFixed(2)
             li.list-group-item CCWM
-                span.badge= stats.ccwm_rank
+                span.badge Rank #{stats.ccwm_rank}
                 span.badge= stats.ccwm.toFixed(2)
             li.list-group-item Fouls
-                span.badge= stats.foul_rank
+                span.badge Rank #{stats.foul_rank}
                 span.badge= stats.foul.toFixed(2)
         h4 Auto
         ul.list-group
             li.list-group-item Rotor
-                span.badge= stats.rotor_auto_rank
+                span.badge Rank #{stats.rotor_auto_rank}
                 span.badge= stats.rotor_auto.toFixed(2)
             li.list-group-item Fuel
-                span.badge= stats.fuel_auto_rank
+                span.badge Rank #{stats.fuel_auto_rank}
                 span.badge= stats.fuel_auto.toFixed(2)
             li.list-group-item Mobility
-                span.badge= stats.mobility_rank
+                span.badge Rank #{stats.mobility_rank}
                 span.badge= stats.mobility.toFixed(2)
         h4 Teleop
         ul.list-group
             li.list-group-item Rotor
-                span.badge= stats.rotor_teleop_rank
+                span.badge Rank #{stats.rotor_teleop_rank}
                 span.badge= stats.rotor_teleop.toFixed(2)
             li.list-group-item Fuel
-                span.badge= stats.fuel_teleop_rank
+                span.badge Rank #{stats.fuel_teleop_rank}
                 span.badge= stats.fuel_teleop.toFixed(2)
             li.list-group-item Climbing
-                span.badge= stats.climb_rank
+                span.badge Rank #{stats.climb_rank}
                 span.badge= stats.climb.toFixed(2)
     .col-lg-8
         - var predictor = "opr"
