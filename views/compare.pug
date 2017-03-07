@@ -14,6 +14,7 @@ block content
                     th OPR
                     th DPR
                     th CCWM
+                    th Teleop
                     th Auto
                     th Climb
                     th Rotor
@@ -31,6 +32,7 @@ block content
                             td= stats.opr.total[team].toFixed(2)
                             td= stats.dpr[team].toFixed(2)
                             td= stats.ccwm[team].toFixed(2)
+                            td= stats.opr.teleop[team].toFixed(2)
                             td= stats.opr.auto[team].toFixed(2)
                             td= stats.opr.climb[team].toFixed(2)
                             td= (stats.opr.rotor.auto[team] + stats.opr.rotor.teleop[team]).toFixed(2)
