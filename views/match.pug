@@ -1,0 +1,21 @@
+style
+    | .alli-blue { background-color: #d6f5f4; }
+    | .alli-red { background-color: #ffd6d6; }
+
+mixin alliance(alli, match)
+    .well.well-sm(class="alli-" + alli, style=(match.info.winner === alli) ? "font-weight: bold" : "")
+        |  #{match.info.alliances[alli][0].substring(3)} /
+        |  #{match.info.alliances[alli][1].substring(3)} /
+        |  #{match.info.alliances[alli][2].substring(3)}
+        if match.info.hasOccured
+            div(style="float:right;margin-left:3px;font-family:monospace;") #{match.info.score[alli].points.total}
+        if match[predictor].winner === alli
+            div(style="float:right;font-weight:bold;font-family:monospace;") (Predicted: #{match[predictor][alli].toFixed(0)})
+        else
+            div(style="float:right;font-family:monospace;") (Predicted: #{match[predictor][alli].toFixed(0)})
+
+mixin score(match)
+    .well.well-sm(style="background:white")
+        p(style="padding-left:5px") Match #{match.info.match_num}
+        +alliance("red", match)
+        +alliance("blue", match)
