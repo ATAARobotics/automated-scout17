@@ -24,14 +24,15 @@ html
   body
     nav.navbar.navbar-default.navbar-fixed-top
       .navbar-header
-      a.navbar-brand(href="/") Home
-      ul.nav.navbar-nav
-        if event
-          li: a(href='/event/'+event.key)= event.name
-        if team
-          li: a(href='/team/'+team.team_number) Team #{team.team_number} #{team.name}
-      ul.nav.navbar-nav.navbar-right
-        li: a(href='?refresh=true') Hard Refresh
-        li: a(href='?raw=true') Raw JSON Data
+          a.navbar-brand(href="/") Home
+      .collapse.navbar-collapse
+        ul.nav.navbar-nav
+          if event
+            li: a(href='/event/'+event.key)= event.name
+          if team
+            li: a(href='/team/'+team.team_number) Team #{team.team_number} #{team.name}
+        ul.nav.navbar-nav.navbar-right
+          li: a(href='?refresh=true') Hard Refresh
+          li: a(href='?raw=true') Raw JSON Data
     div.container
       block content
