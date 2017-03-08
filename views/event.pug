@@ -17,7 +17,7 @@ block content
 
             script
                 | $(document).ready(function() {
-                |   $('#analyze-alliance').click(() => {
+                |   $('#analyze-alliance').click(function() {
                 |     window.location.href = "/event/#{event.key}/analyze?team1=" + $('#team1')[0].value + "&team2=" + $('#team2')[0].value + "&team3=" + $('#team3')[0].value;
                 |   });
                 | });
