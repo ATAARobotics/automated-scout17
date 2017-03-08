@@ -88,6 +88,8 @@ function getPredictions(event_code, refresh) {
 
           pred.opr_accuracy = (100 * opr_was_correct / total_matches).toFixed(2);
           pred.ccwm_accuracy = (100 * ccwm_was_correct / total_matches).toFixed(2);
+          pred.best_predictor = (pred.opr_accuracy > pred.ccwm_accuracy) ? "opr" : "ccwm";
+          pred.accuracy = Math.max(pred.opr_accuracy, pred.ccwm_accuracy);
 
           pred.rankpoints = JSON.parse(JSON.stringify(stats.rankpoints));
           pred.matches.filter((m) => !m.info.hasOccured).forEach((match) => {

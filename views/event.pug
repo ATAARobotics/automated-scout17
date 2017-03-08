@@ -12,12 +12,8 @@ block content
             br
             br
 
-            if prediction.opr_accuracy > prediction.ccwm_accuracy
-                p Predictor (OPR) has been #{prediction.opr_accuracy}% accurate.
-                - var predictor = "opr"
-            else
-                p Predictor (CCWM) has been #{prediction.ccwm_accuracy}% accurate.
-                - var predictor = "ccwm"
+            p Prediction (#{prediction.best_predictor}) has been #{prediction.accuracy}% accurate. (see scores in brackets)
+            - var predictor = prediction.best_predictor
 
             a(href="/event/" + event.key + "/compare" style="margin: 15px 0").btn.btn-primary.btn-block Compare Teams
             ul.list-group

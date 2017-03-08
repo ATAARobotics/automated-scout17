@@ -70,7 +70,8 @@ function getTeamEvent(team_number, event_code, refresh) {
           matches: p.matches.filter((match) => {
             return match.info.alliances.red.indexOf('frc' + team_number) != -1
               || match.info.alliances.blue.indexOf('frc' + team_number) != -1;
-          })
+          }),
+          best_predictor: p.best_predictor
         };
 
         resolve(teamevent);
