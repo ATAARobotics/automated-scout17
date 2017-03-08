@@ -139,7 +139,7 @@ function getStats(event_code, refresh) {
         }
 
         for (dpr in data.dprs) {
-          stats.dpr['frc' + dpr] = data.ccwms[dpr];
+          stats.dpr['frc' + dpr] = data.dprs[dpr];
         }
 
         resolve(stats);
