@@ -3,28 +3,31 @@ extends layout
 block content
     .container
         h1 #{event.name} #{event.year}
-        a(href="https://www.thebluealliance.com/event/2017" + event.key style="padding-right: 5px")
-            img(src="https://www.thebluealliance.com/images/logo_square_512.png" height="25px" width="25px" style="border-radius: 25px;")
-        | #{event.start_date.getDate()}/#{event.start_date.getMonth()}
-        | to #{event.end_date.getDate()}/#{event.end_date.getMonth()}
 
-        .row
-            a(href="/event/" + event.key + "/compare" style="margin: 15px 0").btn.btn-info.btn-block
-                span.glyphicon.glyphicon-star Compare
+        .col-md-4
+            a(href="https://www.thebluealliance.com/event/2017" + event.key style="padding-right:5px")
+                img(src="https://www.thebluealliance.com/images/logo_square_512.png" height="25px" width="25px" style="border-radius: 25px;")
+            | #{event.start_date.getDate()}/#{event.start_date.getMonth()}
+            | to #{event.end_date.getDate()}/#{event.end_date.getMonth()}
+            br
+            br
+
+            if prediction.opr_accuracy > prediction.ccwm_accuracy
+                p Predictor (OPR) has been #{prediction.opr_accuracy}% accurate.
+                - var predictor = "opr"
+            else
+                p Predictor (CCWM) has been #{prediction.ccwm_accuracy}% accurate.
+                - var predictor = "ccwm"
+
+            a(href="/event/" + event.key + "/compare" style="margin: 15px 0").btn.btn-primary.btn-block Compare Teams
             ul.list-group
                 each team in event.teams.map((t) => t.substr(3)).sort((a, b) => a - b)
-                    .col-sm-2
+                    .col
                         a(href="/team/" + team + "/" + event.key)
                             li.list-group-item Team #{team}
-        br
-        if prediction.opr_accuracy > prediction.ccwm_accuracy
-            p Predictor (OPR) has been #{prediction.opr_accuracy}% accurate.
-            - var predictor = "opr"
-        else
-            p Predictor (CCWM) has been #{prediction.ccwm_accuracy}% accurate.
-            - var predictor = "ccwm"
 
-        include match.pug
-        each match in prediction.matches.sort((a, b) => a.info.match_num - b.info.match_num)
-            .col-md-4
-                +score(match)
+        .col-md-8
+            include match.pug
+            each match in prediction.matches.sort((a, b) => a.info.match_num - b.info.match_num)
+                .col-sm-6
+                    +score(match)
