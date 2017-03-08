@@ -15,7 +15,21 @@ block content
             p Prediction (#{prediction.best_predictor}) has been #{prediction.accuracy}% accurate. (see scores in brackets)
             - var predictor = prediction.best_predictor
 
-            a(href="/event/" + event.key + "/compare" style="margin: 15px 0").btn.btn-primary.btn-block Compare Teams
+            script
+                | $(document).ready(function() {
+                |   $('#analyze-alliance').click(() => {
+                |     window.location.href = "/event/#{event.key}/analyze?team1=" + $('#team1')[0].value + "&team2=" + $('#team2')[0].value + "&team3=" + $('#team3')[0].value;
+                |   });
+                | });
+            div.input-group
+                input#team1(type="text" class="form-control" placeholder="Team 1")
+                span.input-group-addon -
+                input#team2(type="text" class="form-control" placeholder="Team 2")
+                span.input-group-addon -
+                input#team3(type="text" class="form-control" placeholder="Team 3")
+            button#analyze-alliance(href="#" style="margin: 15px 0").btn.btn-secondary.btn-block Analyze Alliance
+            a(href="/event/" + event.key + "/compare" style="margin: 15px 0").btn.btn-primary.btn-block Compare All Teams
+
             ul.list-group
                 each team in event.teams.map((t) => t.substr(3)).sort((a, b) => a - b)
                     .col

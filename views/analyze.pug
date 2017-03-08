@@ -1,0 +1,48 @@
+extends layout
+
+block content
+    - var opr = stats.opr.total[teams[0]] + stats.opr.total[teams[1]] + stats.opr.total[teams[2]];
+    - var auto = stats.opr.auto[teams[0]] + stats.opr.auto[teams[1]] + stats.opr.auto[teams[2]];
+    - var teleop = stats.opr.teleop[teams[0]] + stats.opr.teleop[teams[1]] + stats.opr.teleop[teams[2]];
+    - var climb = stats.opr.climb[teams[0]] + stats.opr.climb[teams[1]] + stats.opr.climb[teams[2]];
+    - var rotor = stats.opr.rotor.teleop[teams[0]] + stats.opr.rotor.teleop[teams[1]] + stats.opr.rotor.teleop[teams[2]];
+    - var fuel = stats.opr.fuel.teleop[teams[0]] + stats.opr.fuel.teleop[teams[1]] + stats.opr.fuel.teleop[teams[2]];
+
+    - function avg(oprs) {
+    -   var sum = 0;
+    -   for (var o in oprs) {
+    -       sum += oprs[o];
+    -   }
+    -   return sum / Object.keys(oprs).length;
+    - }
+
+    - var avg_opr = avg(stats.opr.total);
+    - var avg_auto = avg(stats.opr.auto);
+    - var avg_teleop = avg(stats.opr.teleop);
+    - var avg_climb = avg(stats.opr.climb);
+    - var avg_rotor = avg(stats.opr.rotor.teleop);
+    - var avg_fuel = avg(stats.opr.fuel.teleop);
+
+    h2 Alliance Analyzer
+    script
+        | $(document).ready(function() {
+        |   $('#analyze-alliance').click(() => {
+        |     window.location.href = "/event/#{event_key}/analyze?team1=" + $('#team1')[0].value + "&team2=" + $('#team2')[0].value + "&team3=" + $('#team3')[0].value;
+        |   });
+        | });
+    div.input-group
+        input#team1(type="text" class="form-control" placeholder="Team 1" value=teams[0].substring(3))
+        span.input-group-addon -
+        input#team2(type="text" class="form-control" placeholder="Team 2" value=teams[1].substring(3))
+        span.input-group-addon -
+        input#team3(type="text" class="form-control" placeholder="Team 3" value=teams[2].substring(3))
+    button#analyze-alliance(href="#" style="margin: 15px 0").btn.btn-secondary.btn-block Analyze Alliance
+
+    .row
+        br
+        p OPR: #{opr.toFixed(2)} (average is #{avg_opr.toFixed(2)})
+        p Auto: #{auto.toFixed(2)} (average is #{avg_auto.toFixed(2)})
+        p Teleop: #{teleop.toFixed(2)} (average is #{avg_teleop.toFixed(2)})
+        p Climb: #{climb.toFixed(2)} (average is #{avg_climb.toFixed(2)})
+        p Rotor: #{rotor.toFixed(2)} (average is #{avg_rotor.toFixed(2)})
+        p Fuel: #{fuel.toFixed(2)} (average is #{avg_fuel.toFixed(2)})
