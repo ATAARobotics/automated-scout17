@@ -7,8 +7,7 @@ block content
             thead
                 tr
                     th Team
-                    th Rank
-                    th RP
+                    th Rank Points
                     th Predicted RP
                     th OPR Rank
                     th OPR
@@ -25,7 +24,6 @@ block content
                         tr
                             td
                                 a(href="/team/" + teamnumber + "/" + event_code) #{teamnumber}
-                            td= stats.ranking[team]
                             td= stats.rankpoints[team]
                             td= rankpoints[team]
                             td= stats.ranks.opr.total.indexOf(team) + 1
