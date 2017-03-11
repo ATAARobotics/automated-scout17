@@ -11,7 +11,7 @@ function getMatches(event_code) {
     return new Promise((resolve, reject) => {
       tba.getMatchesAtEvent(event_code, 2017, function(err, info) {
         if (err) { console.log(err); return reject(err); }
-        function map_score(breakdown, fouls, win) {
+        function map_score(breakdown, fouls, rps) {
           if (!breakdown) { return undefined; }
           return {
             points: {
@@ -33,7 +33,7 @@ function getMatches(event_code) {
             },
             rankpoints: (breakdown.rotorRankingPointAchieved ? 1 : 0) +
                         (breakdown.kPaRankingPointAchieved ? 1 : 0) +
-                        (win ? 2 : 0)
+                        (rps)
           };
         }
 
@@ -55,15 +55,15 @@ function getMatches(event_code) {
               hasOccured: true,
               key: m.key,
               match_num: m.match_number,
-              winner: (m.score_breakdown.blue.totalPoints > m.score_breakdown.red.totalPoints) ? 'blue' : 'red',
+              winner: (m.score_breakdown.blue.totalPoints > m.score_breakdown.red.totalPoints) ? 'blue' : ((m.score_breakdown.red.totalPoints > m.score_breakdown.blue.totalPoints) ? 'red' : 'tie'),
               alliances: {
                 red: [m.alliances.red.teams[0], m.alliances.red.teams[1], m.alliances.red.teams[2]],
                 blue: [m.alliances.blue.teams[0], m.alliances.blue.teams[1], m.alliances.blue.teams[2]]
               },
               score: {
-                red: map_score(m.score_breakdown.red, m.score_breakdown.blue.foulPoints, m.score_breakdown.red.totalPoints > m.score_breakdown.blue.totalPoints),
-                blue: map_score(m.score_breakdown.blue, m.score_breakdown.red.foulPoints, m.score_breakdown.blue.totalPoints > m.score_breakdown.red.totalPoints)
-              },
+                red: map_score(m.score_breakdown.red, m.score_breakdown.blue.foulPoints, (m.score_breakdown.blue.totalPoints > m.score_breakdown.red.totalPoints) ? 0 : ((m.score_breakdown.red.totalPoints > m.score_breakdown.blue.totalPoints) ? 2 : 1)),
+                blue: map_score(m.score_breakdown.blue, m.score_breakdown.red.foulPoints, (m.score_breakdown.blue.totalPoints > m.score_breakdown.red.totalPoints) ? 2 : ((m.score_breakdown.red.totalPoints > m.score_breakdown.blue.totalPoints) ? 0 : 1))
+              }
             };
           }
         });
