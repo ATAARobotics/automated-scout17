@@ -52,7 +52,7 @@ function getMatches(event_code) {
         matches.list = info.filter((m) => {
           return m.comp_level === 'qm';
         }).map((m) => {
-          if (!m.score_breakdown) {
+          if (!m.score_breakdown || m.alliances.red.score === -1) {
             return {
               hasOccured: false,
               key: m.key,
