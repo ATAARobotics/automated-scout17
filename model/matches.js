@@ -13,6 +13,14 @@ function getMatches(event_code) {
         if (err) { console.log(err); return reject(err); }
         function map_score(breakdown, fouls, rps) {
           if (!breakdown) { return undefined; }
+
+          auto_gears = (breakdown.rotor1Auto ? 1 : 0) + (breakdown.rotor2Auto ? 2 : 0);
+          teleop_gears = (breakdown.rotor1Engaged ? 1 : 0) +
+                         (breakdown.rotor2Engaged ? 2 : 0) +
+                         (breakdown.rotor3Engaged ? 4 : 0) +
+                         (breakdown.rotor4Engaged ? 6 : 0)
+            - (auto_gears)
+
           return {
             points: {
               total: breakdown.totalPoints,
@@ -25,6 +33,10 @@ function getMatches(event_code) {
               rotor: {
                 auto: breakdown.autoRotorPoints,
                 teleop: breakdown.teleopRotorPoints
+              },
+              gear: {
+                auto: auto_gears,
+                teleop: teleop_gears
               },
               fuel: {
                 auto: breakdown.autoFuelPoints,

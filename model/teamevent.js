@@ -49,9 +49,15 @@ function getTeamEvent(team_number, event_code, refresh) {
         teamevent.stats.mobility = stats.opr.mobility[team] + 0;
         teamevent.stats.mobility_rank = stats.ranks.opr.mobility.indexOf(team) + 1;
         teamevent.stats.rotor_auto = stats.opr.rotor.auto[team] + 0;
+        teamevent.stats.rotor_auto = stats.opr.rotor.auto[team] + 0;
         teamevent.stats.rotor_auto_rank = stats.ranks.opr.rotor.auto.indexOf(team) + 1;
         teamevent.stats.rotor_teleop = stats.opr.rotor.teleop[team] + 0;
         teamevent.stats.rotor_teleop_rank = stats.ranks.opr.rotor.teleop.indexOf(team) + 1;
+        teamevent.stats.gear_auto = stats.opr.gear.auto[team] + 0;
+        teamevent.stats.gear_auto = stats.opr.gear.auto[team] + 0;
+        teamevent.stats.gear_auto_rank = stats.ranks.opr.gear.auto.indexOf(team) + 1;
+        teamevent.stats.gear_teleop = stats.opr.gear.teleop[team] + 0;
+        teamevent.stats.gear_teleop_rank = stats.ranks.opr.gear.teleop.indexOf(team) + 1;
         teamevent.stats.fuel_auto = stats.opr.fuel.auto[team] + 0;
         teamevent.stats.fuel_auto_rank = stats.ranks.opr.fuel.auto.indexOf(team) + 1;
         teamevent.stats.fuel_teleop = stats.opr.fuel.teleop[team] + 0;

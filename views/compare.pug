@@ -16,7 +16,7 @@ block content
                     th Teleop
                     th Auto
                     th Climb
-                    th Rotor
+                    th Gears
                     th Fuel
                 tbody
                     each team in Object.keys(stats.ranking).sort((a, b) => stats.ranking[a] - stats.ranking[b])
@@ -33,5 +33,5 @@ block content
                             td= stats.opr.teleop[team].toFixed(2)
                             td= stats.opr.auto[team].toFixed(2)
                             td= stats.opr.climb[team].toFixed(2)
-                            td= (stats.opr.rotor.auto[team] + stats.opr.rotor.teleop[team]).toFixed(2)
+                            td= (stats.opr.gear.auto[team] + stats.opr.gear.teleop[team]).toFixed(2)
                             td= (stats.opr.fuel.auto[team] + stats.opr.fuel.teleop[team]).toFixed(2)

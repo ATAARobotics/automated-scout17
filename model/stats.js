@@ -88,6 +88,10 @@ function getStats(event_code, refresh) {
               auto: opr(event.teams, matches, (score) => score.points.rotor.auto),
               teleop: opr(event.teams, matches, (score) => score.points.rotor.teleop)
             },
+            gear: {
+              auto: opr(event.teams, matches, (score) => score.points.gear.auto),
+              teleop: opr(event.teams, matches, (score) => score.points.gear.teleop)
+            },
             fuel: {
               auto: opr(event.teams, matches, (score) => score.points.fuel.auto),
               teleop: opr(event.teams, matches, (score) => score.points.fuel.teleop)
@@ -114,6 +118,10 @@ function getStats(event_code, refresh) {
           rotor: {
             auto: sort(stats.opr.rotor.auto),
             teleop: sort(stats.opr.rotor.teleop)
+          },
+          gear: {
+            auto: sort(stats.opr.gear.auto),
+            teleop: sort(stats.opr.gear.teleop)
           },
           fuel: {
             auto: sort(stats.opr.fuel.auto),
