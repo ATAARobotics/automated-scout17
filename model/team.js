@@ -5,6 +5,8 @@ var NodeCache = require("node-cache");
 var cache = new NodeCache();
 
 function getTeam(team_number, refresh) {
+  if (team_number.startsWith("frc")) { team_number = team_number.substr(3); }
+
   function getTeamInfo(team) {
     team = team || {};
     return new Promise((resolve, reject) => {

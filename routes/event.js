@@ -3,6 +3,7 @@ var router = express.Router();
 var Event = require('../model/event.js');
 var Predict = require('../model/predict.js');
 var Stats = require('../model/stats.js');
+var Worlds = require('../model/worlds.js');
 
 router.get('/:event', function(req, res, next) {
   Event.findEvent(req.params.event, req.query.refresh).then(function(event) {
@@ -26,6 +27,12 @@ router.get('/:event/analyze', function(req, res, next) {
     var model = { event_key: req.params.event, stats: stats, teams: ['frc' + req.query.team1, 'frc' + req.query.team2, 'frc' + req.query.team3]};
     if (req.query.raw) { return res.json(model); }
     res.render('analyze', model);
+  });
+});
+
+router.get('/:event/worlds', function(req, res, next) {
+  Worlds.findWorlds(req.params.event, req.query.refresh).then(function(worlds) {
+    return res.json(worlds);
   });
 });
 
