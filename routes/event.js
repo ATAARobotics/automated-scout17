@@ -3,7 +3,7 @@ var router = express.Router();
 var Event = require('../model/event.js');
 var Predict = require('../model/predict.js');
 var Stats = require('../model/stats.js');
-var Worlds = require('../model/worlds.js');
+var Overview = require('../model/overview.js');
 
 router.get('/:event', function(req, res, next) {
   Event.findEvent(req.params.event, req.query.refresh).then(function(event) {
@@ -30,9 +30,9 @@ router.get('/:event/analyze', function(req, res, next) {
   });
 });
 
-router.get('/:event/worlds', function(req, res, next) {
-  Worlds.findWorlds(req.params.event, req.query.refresh).then(function(worlds) {
-    return res.json(worlds);
+router.get('/:event/overview', function(req, res, next) {
+  Overview.findOverview(req.params.event, req.query.refresh).then(function(overview) {
+    return res.json(overview);
   });
 });
 
