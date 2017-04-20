@@ -1,0 +1,29 @@
+extends layout
+
+block content
+    .container: p: p MAX component OPRs
+    .container
+        table.table.sortable
+            thead
+                tr
+                    th Team
+                    th OPR
+                    th DPR
+                    th CCWM
+                    th Auto
+                    th Teleop
+                    th Climb
+                    th Gear
+                    th Fuel
+                tbody
+                    each team in overview
+                        tr
+                            td= team.team_number
+                            td= team.max.opr.toFixed(2)
+                            td= team.max.dpr.toFixed(2)
+                            td= team.max.ccwm.toFixed(2)
+                            td= team.max.auto.toFixed(2)
+                            td= team.max.teleop.toFixed(2)
+                            td= team.max.climb.toFixed(2)
+                            td= team.max.gear_teleop.toFixed(2)
+                            td= (team.max.fuel_auto + team.max.fuel_teleop).toFixed(2)

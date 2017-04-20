@@ -32,7 +32,8 @@ router.get('/:event/analyze', function(req, res, next) {
 
 router.get('/:event/overview', function(req, res, next) {
   Overview.findOverview(req.params.event, req.query.refresh).then(function(overview) {
-    return res.json(overview);
+    if (req.query.raw) { return res.json(overview); }
+    res.render('overview', {overview: overview});
   });
 });
 
